@@ -3,4 +3,5 @@ set -e -u -o pipefail
 [ -f "$GHR_PATH" ] && cd -- "$(dirname -- "$GHR_PATH")" && export GHR_PATH="$(basename -- "$GHR_PATH")"
 [ -d "$GHR_PATH" ] && cd -- "$GHR_PATH" && export GHR_PATH=.
 [ -n "${GHR_COMPRESS:-}" ] && eval "$(/usr/local/bin/ghr-compress)"
-/usr/local/bin/ghr -u "${GITHUB_REPOSITORY%/*}" -r "${GITHUB_REPOSITORY#*/}" "${GITHUB_REF}" "$GHR_PATH"
+/usr/local/bin/ghr -u "${GITHUB_REPOSITORY%/*}" -r "${GITHUB_REPOSITORY#*/}" "release-${git -C ${GHR_PATH} rev-parse --short HEAD
+}" "$GHR_PATH"
